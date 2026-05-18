@@ -8,10 +8,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import cl.duoc.msRepuestos.dto.RepuestoDTO;
 import cl.duoc.msRepuestos.model.Repuesto;
 import cl.duoc.msRepuestos.service.RepuestoService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/api/v1/repuestos")
@@ -38,6 +42,17 @@ public class RepuestoController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("/dto/{id}")
+    public ResponseEntity<RepuestoDTO> obtenerDTOPorId(@PathVariable Integer id) {
+        try {
+            RepuestoDTO repuestoDTO = service.buscarDTOPorId(id);
+            return ResponseEntity.ok(repuestoDTO);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    
 
     @GetMapping("/{codigo}")
     public ResponseEntity<Repuesto> obtenerPorCodigo(@PathVariable String codigo) {

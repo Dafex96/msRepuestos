@@ -3,6 +3,8 @@ package cl.duoc.msRepuestos.service;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import cl.duoc.msRepuestos.dto.RepuestoDTO;
 import cl.duoc.msRepuestos.model.Repuesto;
 import cl.duoc.msRepuestos.repository.RepuestoRepository;
 
@@ -33,5 +35,15 @@ public class RepuestoService {
             repo.deleteById(id);
         }
         throw new RuntimeException("Repuesto no encontrado");
+    }
+
+    public RepuestoDTO buscarDTOPorId(Integer id){
+        Repuesto repuesto = buscarPorId(id);
+        RepuestoDTO repuestoDTO = new RepuestoDTO();
+
+        repuestoDTO.setCodigo(repuesto.getCodigo());
+        repuestoDTO.setId(repuesto.getId());
+        repuestoDTO.setPrecio(repuesto.getPrecio());
+        return repuestoDTO;
     }
 }
