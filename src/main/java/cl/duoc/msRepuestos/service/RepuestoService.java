@@ -28,22 +28,6 @@ public class RepuestoService {
         return repo.save(repuesto);
     }
 
-    public List<Repuesto> listarBajoStock() {
-        return repo.findBajoStock();
-    }
-
-    public Repuesto descontarStock(String codigo, Integer cantidad) {
-        Repuesto repuesto = repo.findByCodigo(codigo).orElseThrow(() -> new RuntimeException("Repuesto no encontrado"));
-
-        if (repuesto.getStockActual() < cantidad) {
-            throw new RuntimeException("Stock insuficiente");
-        }
-
-        repuesto.setStockActual(repuesto.getStockActual() - cantidad);
-        
-        return repo.save(repuesto);
-    }
-
     public void eliminarRepuesto(Integer id) {
         if (repo.existsById(id)) {
             repo.deleteById(id);
